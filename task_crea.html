@@ -1,0 +1,106 @@
+<!-- html file that will replace psiturk/crea/static/js/task.js (only the "script" part)
+ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jspsych/jspsych.js"></script>
+    <script src="jspsych/plugins/jspsych-html-button-response.js"></script> 
+    <script src="jspsych/plugins/jspsych-survey-likert.js"></script> 
+    <script src="jspsych/plugins/jspsych-text.js" type="text/javascript"></script>
+    <script src="jspsych/plugins/jspsych-instructions.js"></script>
+    <link href="jspsych/css/jspsych.css" rel="stylesheet">
+  
+    <style>
+      h {text-align: center; font-size:200%;}
+      p {text-align: left; font-size:150%;}
+    </style>
+
+  </head>
+  <body></body>
+
+  <script>
+    // var psiturk = new PsiTurk(uniqueId, adServerLoc, mode);
+
+    var timeline = [];
+
+    // var welcome_block = {
+    //     type: "text",
+    //     text: "Welcome to the experiment. Press the SPACE key to begin.",
+    //     cont_key: [' '],
+    //     choices: [' ']
+    // };
+    // timeline.push(welcome_block);
+
+    var welcome_block = {
+    type: 'instructions',
+    pages: ['<p> Welcome to the experiment. Click next to begin.</p>',
+      "<p>In this experiment, you will be asked about various properties of a verb. </p>",
+      '<p>Click to start the experiment.</p>'],
+    show_clickable_nav: true,
+    show_page_number: true
+    // on_finish: function(){
+    //     psiturk.finishInstructions()
+  };
+    timeline.push(welcome_block)
+
+    var scale=["N/A", "0", "1", "2", "3", "4", "5", "6"]
+
+    var crea_question = {
+      type: 'survey-likert',
+      questions: [
+        {prompt: "<h><b> chair </b></h><br><h>As in: <i>The boy sat in a chair</i></h> <p><b>To what degree do you think of this thing as being associated with pain or physical discomfort?</b></p> <p> For comparison, 'headache' would receive a high rating on this question, because headaches are associated with a lot of pain and physical discomfort. <br><br> In contrast, 'pin' might receive a medium rating, because a pin might accidentally cause pain.</p><br><p>Your rating for <b>chair</b>:</p>", name: 'Chair', labels: scale, required: true}
+      ],
+  };
+  timeline.push(crea_question)
+
+  //   var crea_trial_random_order = {
+  //     type: 'survey-likert',
+  //     questions: [
+  //       {prompt: "Question 1", labels: scale}, 
+  //       {prompt: "Question 2", labels: scale},
+  //       {prompt: "Question 3", labels: scale},
+  //       {prompt: "Question 4", labels: scale},
+  //       {prompt: "Question 5", labels: scale}
+  //     ],
+  //     randomize_question_order: true,
+  //     scale_width: 500
+  // };
+
+  var bye_block = {
+    type: 'instructions',
+    pages: ['You reached the end of the experiment. Thank you for your participation! Click to exit.'],
+    show_clickable_nav: true,
+    show_page_number: false
+    // on_finish: function(){
+    //     psiturk.finishInstructions()
+  };
+    timeline.push(bye_block)
+   
+
+    jsPsych.init({
+          timeline: timeline, 
+          on_finish: function() { jsPsych.data.displayData(); }
+        });
+
+
+    // jsPsych.init({
+    //   timeline: [welcome_block, crea_trial, crea_trial_random_order],
+    //   on_finish: function() { jsPsych.data.displayData(); }
+    // });
+
+
+   //  var timeline = [];
+
+   //  var words = ['Welcome', 'to', 'my', 'experiment'];
+
+   //  for (var i=0; i<words.length; i++) {
+   //    var welcome_trial = {
+   //    type: 'html-keyboard-response', 
+   //    stimulus: words[i]
+   //    }
+   //    timeline.push(welcome_trial)
+   //  }
+
+  </script>
+</html>
