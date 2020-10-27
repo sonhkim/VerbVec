@@ -1,21 +1,21 @@
+# Author: Songhee Kim <songheekim@mcw.edu>
+
+"""This script extracts the transitive (i.e., containing 'dobj') and intransitive (i.e., everything else) counts 
+from Google Syntactic Ngram (Unlex Verbargs was used here). The script reads each file, turns it into a dictionary, 
+keeps only the data from the year 1950 or later, and then construct a dictionary conataining the number of occurrences of 
+(in)transitivity, and finally exports the results to an excel file.  
+Link to the Google syntactic N-gram: http://commondatastorage.googleapis.com/books/syntactic-ngrams/index.html """
+
 import pandas as pd
 import csv
 import os
 import sys
-
-"""This script extracts transitive (i.e., containing 'dobj') and intransitive (i.e., everything else) counts 
-from Google Syntactic Ngram (Unlex Verbargs). The script first reads each file, turns it into a dictionary, 
-counts only the data from 1950 or later, and then construct a dictionary conatining only the transitivity information, 
-and finally exports the results to an excel file.  
-Link to the Google N-gram: http://commondatastorage.googleapis.com/books/syntactic-ngrams/index.html """
-
 
 csv.field_size_limit(sys.maxsize)
 
 filenames = os.listdir("./unlex")
 filenames.sort()
 #print (len(filenames))
-
 
 ngram_dict = {}
 
@@ -57,7 +57,6 @@ for filename in filenames:
                 else:
                     ngram_dict[entry]['intransitive'] += totalrecentN
                 ngram_dict[entry]['totalcount'] += totalrecentN
-
 
 df_out = pd.DataFrame.from_dict(ngram_dict, orient='index') 
 df_out.to_excel('/home/songkim/Documents/verb_transitivity/Transitivity_from_GoogleNgram.xlsx')            
